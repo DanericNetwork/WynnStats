@@ -12,7 +12,6 @@
 
 <script lang="ts">
 import { ref } from 'vue';
-import axios from 'axios';
 
 export default {
   setup() {
@@ -28,14 +27,20 @@ export default {
       responseData.value = '';
 
       try {
-        const response = await axios.get(`https://api.wynncraft.com/v2/player/${inputValue.value}/stats`);
-
-        responseData.value = response.data;
+        const response = await fetch(`https://api.wynncraft.com/v2/player/${inputValue.value}/stats`);
+        const data = await response.json();
+        if(data.code === 400) {
+          error.value = 'Player not found';
+        } else if(data.code === 200) {
+          playerSearched.value = true;
+          responseData.value = JSON.stringify(data);
+        } else {
+          error.value = 'An error occurred. Please try again.';
+        }
       } catch (error: any) {
         error.value = 'An error occurred. Please try again.';
       } finally {
         isLoading.value = false;
-        playerSearched.value = true;
       }
     };
 
