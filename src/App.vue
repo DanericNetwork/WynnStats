@@ -206,11 +206,20 @@ export default {
   },
   methods: {
     getPlayer() {
+      this.isLoading = true;
+      let loadingToast = toast("Loading player data...", {
+            theme: 'dark',
+            type: 'loading',
+            position: 'top-right',
+            transition: 'bounce',
+      });
       fetch(`https://api.wynncraft.com/v2/player/${this.inputValue}/stats`)
         .then((response) => response.json())
         .then((data) => {
           if(data.code === 400) {
-            this.error = 'Player not found';
+            this.isError('Player not found')
+            this.isLoading = false;
+            toast.remove(loadingToast);
             toast("Player not found", {
               theme: 'dark',
               type: 'error',
@@ -220,6 +229,8 @@ export default {
           } else if(data.code === 200) {
             this.playerSearched = true;
             this.data = data.data[0];
+            this.isLoading = false;
+            toast.remove(loadingToast);
             toast(`Successfully loaded ${this.inputValue}.`, {
               theme: 'dark',
               type: 'success',
@@ -227,17 +238,20 @@ export default {
               transition: 'bounce',
             });
           } else {
-            this.error = 'An error occurred. Please try again.';
+            this.isError('An error occurred. Please try again.')
+            this.isLoading = false;
           }
         })
         .catch((error) => {
-          this.error = 'An error occurred. Please try again.';
-            toast("An error occured.", {
-              theme: 'dark',
-              type: 'error',
-              position: 'top-right',
-              transition: 'bounce',
-            });
+          this.isError('An error occurred. Please try again.')
+          this.isLoading = false;
+          toast.remove(loadingToast);
+          toast("An error occured.", {
+            theme: 'dark',
+            type: 'error',
+            position: 'top-right',
+            transition: 'bounce',
+          });
           console.log(error);
         })
         .finally(() => {
@@ -260,7 +274,13 @@ export default {
       this.responseData = '';
       this.playerSearched = false;
       this.data = {} as playerData;
-    }
+    },
+    isError(error: string) {
+      this.error = error;
+      setTimeout(() => {
+        this.error = '';
+      }, 5000);
+    },
   },
   computed: {
     totalMobKills() {
