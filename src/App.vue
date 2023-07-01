@@ -14,7 +14,8 @@
           <p style="top: 0px; left: 0px">{{ data.meta.tag.value }}</p>
           <div class="online-status">
             <div class="status-circle" :class="data.meta.location.online ? 'online' : 'offline'"></div>
-            <p class="online-server">{{ data.meta.location.server }}</p>
+            <p v-if="data.meta.location.online" class="online-server">{{ data.meta.location.server }}</p>
+            <p v-else class="online-server">Offline</p>
           </div>
         </div>
         <p class="name">{{ data.username }}</p>
