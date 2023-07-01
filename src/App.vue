@@ -16,6 +16,103 @@
 </template>
 
 <script lang="ts">
+interface characters {
+  type: string;
+  level: number;
+  dungeons: {
+    completed: number;
+    list: {
+      [key: string]: {
+        name: string;
+        completed: number;
+      }
+    }
+  }
+  raids: {
+    completed: number;
+    list: {
+      [key: string]: {
+        name: string;
+        completed: number;
+      }
+    }
+  },
+  quests: {
+    completed: number;
+    list: Array<string>;
+  },
+  mobsKilled: number;
+  pvp: {
+    kills: number;
+    deaths: number;
+  },
+  blocksWalked: number;
+  logins: number;
+  deaths: number;
+  playtime: number;
+  skills: {
+    strength: number;
+    dexterity: number;
+    intelligence: number;
+    defence: number;
+    agility: number;
+  },
+  professions: {
+    alchemism: {
+      level: number;
+      xp: number;
+    },
+    armouring: {
+      level: number;
+      xp: number;
+    },
+    combat: {
+      level: number;
+      xp: number;
+    },
+    cooking: {
+      level: number;
+      xp: number;
+    },
+    farming: {
+      level: number;
+      xp: number;
+    },
+    fishing: {
+      level: number;
+      xp: number;
+    },
+    jeweling: {
+      level: number;
+      xp: number;
+    },
+    mining: {
+      level: number;
+      xp: number;
+    },
+    scribing: {
+      level: number;
+      xp: number;
+    },
+    tailoring: {
+      level: number;
+      xp: number;
+    },
+    weaponsmithing: {
+      level: number;
+      xp: number;
+    },
+    woodcutting: {
+      level: number;
+      xp: number;
+    }
+    woodworking: {
+      level: number;
+      xp: number;
+    }
+  };
+}
+
 interface playerData {
   username: string;
   uuid: string;
@@ -25,7 +122,16 @@ interface playerData {
     location: {
       online: boolean;
       server: string;
-    }
+    },
+    playtime: number;
+    tag: {
+      display: boolean;
+      value: string;
+    },
+    veteran: boolean;
+  },
+  characters: {
+    [key: string]: characters;
   }
 }
 export default {
