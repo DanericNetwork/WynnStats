@@ -19,9 +19,31 @@
         </div>
         <p class="name">{{ data.username }}</p>
       </div>
-      <div class="tooltip">
-        <h1 @mouseover="joinDateHover" @mouseleave="joinDate = false">First Join: {{ timeAgo(new Date(data.meta.firstJoin)) }}</h1>
-        <p class="tooltiptext">{{ formattedDate(new Date(data.meta.firstJoin)) }}</p>
+      <div class="info-container">
+        <div class="info-container-top">
+          <div class="info-card">
+            <p class="info-card-title">Mobs killed</p>
+            <p class="info-card-value">{{ totalMobKills.toLocaleString('en-US') }}</p>
+          </div>
+          <div class="info-card">
+            <p class="info-card-title">Total level</p>
+            <p class="info-card-value">{{ totalLevel.toLocaleString('en-US') }}</p>
+          </div>
+        </div>
+        <div class="info-container-bottom">
+          <div class="info-card">
+            <p class="info-card-title">First join</p>
+            <p class="info-card-value">{{ formattedDate(new Date(data.meta.firstJoin)) }} ({{ timeAgo(new Date(data.meta.firstJoin)) }})</p>
+          </div>
+          <div class="info-card">
+            <p class="info-card-title">Playtime <span>Not 100% accurate</span></p>
+            <p class="info-card-value">{{ (data.meta.playtime / 12).toFixed() }} hours</p>
+          </div>
+          <div class="info-card">
+            <p class="info-card-title">Last join</p>
+            <p class="info-card-value">{{ formattedDate(new Date(data.meta.lastJoin)) }} ({{ timeAgo(new Date(data.meta.lastJoin)) }})</p>
+          </div>
+        </div>
       </div>
       <div class="characters">
         <div v-for="character in data.characters" class="character">
@@ -225,7 +247,7 @@ export default {
       return moment(time).fromNow();
     },
     formattedDate(time: Date) {
-      return moment(time).format('MMMM Do YYYY, h:mm:ss a');
+      return moment(time).format('MMMM Do YYYY');
     },
     joinDateHover() {
       this.joinDate = !this.joinDate;
@@ -239,5 +261,32 @@ export default {
       this.data = {} as playerData;
     }
   },
+  computed: {
+    totalMobKills() {
+      let total = 0;
+      for(const character in this.data.characters) {
+        total += this.data.characters[character].mobsKilled;
+      }
+      return total;
+    },
+    totalLevel() {
+      let total = 0;
+      let profesion: any;
+      for(const character in this.data.characters) {
+        profesion = this.data.characters[character].professions;
+        for(const prof in profesion) {
+          total += profesion[prof].level;
+        }
+      }
+      return total;
+    },
+    totalPlaytime() {
+      let total = 0;
+      for(const character in this.data.characters) {
+        total += this.data.characters[character].playtime;
+      }
+      return total;
+    },
+  }
 };
 </script>
