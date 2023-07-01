@@ -48,8 +48,9 @@ button {
   color: #b4b4b4;
 }
 
-button:focus {
+button:hover {
   border-color: #b4b4b4;
+  cursor: pointer;
 }
 
 .name-card {
@@ -64,24 +65,37 @@ button:focus {
   background-color: #242424;
 }
 
+.name-card-top {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  font-weight: 600;
+  width: 100%;
+  font-size: 16px;
+}
+
+.name {
+  font-size: 32px;
+  font-weight: 600;
+  font-family: inherit;
+}
+
 .online-status {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
   justify-content: center;
 }
 
 .status-circle {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   margin-right: 5px;
 }
 
 .online-server {
   color: #b4b4b4;
-  font-size: 24px;
-  font-weight: 600;
   font-family: inherit;
 }
 
@@ -176,6 +190,14 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0 auto;
+  padding: 20px;
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
   padding: 20px;
   width: 100%;

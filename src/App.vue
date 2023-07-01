@@ -7,16 +7,17 @@
     </div>
     <div v-if="isLoading">Loading...</div>
     <div v-else-if="error">{{ error }}</div>
-    <!-- <div v-else-if="responseData">{{ responseData }}</div> -->
-    <div v-if="playerSearched" class="dataContainer">
+    <div v-if="playerSearched" class="container">
+      <button class="back-home-btn" @click="reset">Back Home</button>
       <div class="name-card">
-        <p>{{ data.meta.tag.value }}</p>
-        <p>Username: {{ data.username }}</p>
-        <div class="online-status">
-          <div class="status-circle" :class="data.meta.location.online ? 'online' : 'offline'"></div>
-          <p class="online-server">{{ data.meta.location.server }}</p>
+        <div class="name-card-top">
+          <p style="top: 0px; left: 0px">{{ data.meta.tag.value }}</p>
+          <div class="online-status">
+            <div class="status-circle" :class="data.meta.location.online ? 'online' : 'offline'"></div>
+            <p class="online-server">{{ data.meta.location.server }}</p>
+          </div>
         </div>
-
+        <p class="name">{{ data.username }}</p>
       </div>
       <div class="tooltip">
         <h1 @mouseover="joinDateHover" @mouseleave="joinDate = false">First Join: {{ timeAgo(new Date(data.meta.firstJoin)) }}</h1>
@@ -229,6 +230,14 @@ export default {
     joinDateHover() {
       this.joinDate = !this.joinDate;
     },
+    reset() {
+      this.inputValue = '';
+      this.isLoading = false;
+      this.error = '';
+      this.responseData = '';
+      this.playerSearched = false;
+      this.data = {} as playerData;
+    }
   },
 };
 </script>
