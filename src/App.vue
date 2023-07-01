@@ -1,7 +1,7 @@
 <template>
     <div v-if="!playerSearched" class="searchPlayer-container">
       <div class="searchPlayer">
-        <input type="text" v-model="inputValue" placeholder="Playername" />
+        <input type="text" v-model="inputValue" placeholder="Playername" @keyup.enter="getPlayer" />
         <button @click="getPlayer">Search player</button>
       </div>
     </div>
