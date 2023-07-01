@@ -1,8 +1,9 @@
 <template>
-  <div>
-    <div v-if="!playerSearched" class="searchPlayer">
-      <input type="text" v-model="inputValue" placeholder="Enter a value" />
-      <button @click="getPlayer">Submit</button>
+    <div v-if="!playerSearched" class="searchPlayer-container">
+      <div class="searchPlayer">
+        <input type="text" v-model="inputValue" placeholder="Playername" />
+        <button @click="getPlayer">Search player</button>
+      </div>
     </div>
     <div v-if="isLoading">Loading...</div>
     <div v-else-if="error">{{ error }}</div>
@@ -29,7 +30,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script lang="ts">

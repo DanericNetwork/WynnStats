@@ -8,10 +8,9 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
   background-color: #242424;
   color: #b4b4b4;
+  width: 100%;
 }
 
 h1 {
@@ -143,4 +142,41 @@ p {
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
+}
+
+.searchPlayer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  padding: 20px;
+  width: 100%;
+  gap: 10px;
+}
+
+.searchPlayer button {
+  width: 212px;
+  transition: 0.2s;
+}
+
+.searchPlayer button:hover {
+  cursor: pointer;
+  transform: translateY(-0.15em);
+  border: 1px solid #b4b4b4;
+}
+
+.searchPlayer-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  padding: 20px;
+  width: 100%;
 }
