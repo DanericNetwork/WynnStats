@@ -178,7 +178,6 @@ p {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  padding: 20px;
   width: 100%;
 }
 
@@ -188,7 +187,7 @@ p {
   gap: 40px;
   flex-wrap: wrap;
   margin: 0 auto;
-  padding: 20px;
+  padding: 20px 0px;
   width: 100%;
   border: 1px solid #575757;
   border-radius: 5px;
@@ -202,7 +201,7 @@ p {
   gap: 40px;
   flex-wrap: wrap;
   margin: 0 auto;
-  padding: 20px;
+  padding: 20px 0px;
   width: 100%;
   border: 1px solid #575757;
   border-radius: 5px;
