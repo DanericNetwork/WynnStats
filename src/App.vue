@@ -8,16 +8,49 @@
     <div v-else-if="error">{{ error }}</div>
     <!-- <div v-else-if="responseData">{{ responseData }}</div> -->
     <div v-if="playerSearched" class="dataContainer">
-      <h1>Username: {{ data.username }}</h1>
-      <h1>First Join: {{ data.meta.firstJoin }}</h1>
-      <h1>Online: {{ data.meta.location.online }}</h1>
+      <div class="name-card">
+        <p>{{ data.meta.tag.value }}</p>
+        <p>Username: {{ data.username }}</p>
+        <div class="online-status">
+          <div class="status-circle" :class="data.meta.location.online ? 'online' : 'offline'"></div>
+          <p class="online-server">{{ data.meta.location.server }}</p>
+        </div>
+
+      </div>
+      <div class="tooltip">
+        <h1 @mouseover="joinDateHover" @mouseleave="joinDate = false">First Join: {{ timeAgo(new Date(data.meta.firstJoin)) }}</h1>
+        <p class="tooltiptext">{{ formattedDate(new Date(data.meta.firstJoin)) }}</p>
+      </div>
+      <div class="characters">
+        <div v-for="character in data.characters" class="character">
+          <p>{{ (charactersType as any)[character.type] }}</p>
+          <p>Combat: {{ character.professions.combat.level }}</p>
+          <p>Total: {{ character.level }}</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import moment from 'moment';
+import { toast } from 'vue3-toastify';
+
+
+enum charactersType {
+  ARCHER = 'Archer',
+  MAGE = 'Mage',
+  ASSASSIN = 'Assassin',
+  WARRIOR = 'Warrior',
+  SHAMAN = 'Shaman',
+  NINJA = 'Ninja',
+  DARKWIZARD = 'Dark Wizard',
+  KNIGHT = 'Knight',
+  HUNTER = 'Hunter',
+}
+
 interface characters {
-  type: string;
+  type: charactersType;
   level: number;
   dungeons: {
     completed: number;
@@ -143,6 +176,8 @@ export default {
       responseData: '',
       playerSearched: false,
       data: {} as playerData,
+      charactersType: charactersType,
+      joinDate: false,
     };
   },
   methods: {
@@ -152,22 +187,48 @@ export default {
         .then((data) => {
           if(data.code === 400) {
             this.error = 'Player not found';
+            toast("Player not found", {
+              theme: 'dark',
+              type: 'error',
+              position: 'top-right',
+              transition: 'bounce',
+            });
           } else if(data.code === 200) {
             this.playerSearched = true;
             this.data = data.data[0];
-            console.log(data.data[0]);
+            toast(`Successfully loaded ${this.inputValue}.`, {
+              theme: 'dark',
+              type: 'success',
+              position: 'top-right',
+              transition: 'bounce',
+            });
           } else {
             this.error = 'An error occurred. Please try again.';
           }
         })
         .catch((error) => {
           this.error = 'An error occurred. Please try again.';
+            toast("An error occured.", {
+              theme: 'dark',
+              type: 'error',
+              position: 'top-right',
+              transition: 'bounce',
+            });
           console.log(error);
         })
         .finally(() => {
           this.isLoading = false;
         });
-    }
+    },
+    timeAgo(time: Date) {
+      return moment(time).fromNow();
+    },
+    formattedDate(time: Date) {
+      return moment(time).format('MMMM Do YYYY, h:mm:ss a');
+    },
+    joinDateHover() {
+      this.joinDate = !this.joinDate;
+    },
   },
 };
 </script>
