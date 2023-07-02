@@ -3,7 +3,7 @@ import './style.css'
 import App from './App.vue'
 import Vue3Toasity from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
-import { router } from './utils/router'
+import router from './utils/router'
 
 createApp(App).use(
     Vue3Toasity,
