@@ -9,7 +9,7 @@
 				<h2>Last searches:</h2>
 				<div class="last-searches">
 					<div v-for="search in lastSearches" class="last-search">
-						<router-link :to="'/player/' + search">{{ search }}</router-link>
+						<router-link :to="'/player/' + search"><img :src="'https://cravatar.eu/avatar/' + search" alt="">{{ search }}</router-link>
 					</div>
 				</div>
 			</div>
