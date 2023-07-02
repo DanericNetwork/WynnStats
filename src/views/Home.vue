@@ -9,7 +9,7 @@
 				<h2>Last searches:</h2>
 				<div class="last-searches">
 					<div v-for="search in lastSearches" class="last-search">
-						<a href="/player/{{ search }}">{{ search }}</a>
+						<router-link :to="'/player/' + search">{{ search }}</router-link>
 					</div>
 				</div>
 			</div>
@@ -19,26 +19,27 @@
 
 <script lang="ts">
 import { getLastSearches, addLastSearch } from '../utils/lastSearches';
+
 export default {
-	name: 'Home',
-	data() {
-		return {
-			inputValue: '',
-			playerSearched: false,
-		};
-	},
-	methods: {
-		getPlayer() {
-			if (this.inputValue.length > 0) {
-				this.$router.push(`/player/${this.inputValue}`);
-				addLastSearch(this.inputValue);
-			}
-		},
-	},
-	computed: {
-		lastSearches() {
-			return getLastSearches();
-		},
-	},
+    name: "Home",
+    data() {
+        return {
+            inputValue: "",
+            playerSearched: false,
+        };
+    },
+    methods: {
+        getPlayer() {
+            if (this.inputValue.length > 0) {
+                this.$router.push(`/player/${this.inputValue}`);
+                addLastSearch(this.inputValue);
+            }
+        },
+    },
+    computed: {
+        lastSearches() {
+            return getLastSearches();
+        },
+    },
 };
 </script>
