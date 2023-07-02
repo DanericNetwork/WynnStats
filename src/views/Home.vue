@@ -1,9 +1,9 @@
 <template>
     <div>
-        <div v-if="!playerSearched" class="searchPlayer-container">
+        <div class="searchPlayer-container">
             <div class="searchPlayer">
-            <input type="text" v-model="inputValue" placeholder="Playername" @keyup.enter="getPlayer" />
-            <button @click="getPlayer">Search player</button>
+                <input type="text" v-model="inputValue" placeholder="Playername" @keyup.enter="getPlayer" />
+                <button @click="getPlayer">Search player</button>
             </div>
         </div>
     </div>
@@ -22,7 +22,6 @@ export default {
     getPlayer() {
       if (this.inputValue.length > 0) {
         this.$router.push(`/player/${this.inputValue}`);
-        this.playerSearched = true;
       }
     },
   },

@@ -226,6 +226,7 @@ export default {
 					if (data.code === 400) {
 						this.isError('Player not found')
 						this.isLoading = false;
+						this.$router.push('/');
 						toast.remove(loadingToast);
 						toast("Player not found", {
 							theme: 'dark',
@@ -247,11 +248,13 @@ export default {
 					} else {
 						this.isError('An error occurred. Please try again.')
 						this.isLoading = false;
+						this.$router.push('/');
 					}
 				})
 				.catch((error) => {
 					this.isError('An error occurred. Please try again.')
 					this.isLoading = false;
+					this.$router.push('/');
 					toast.remove(loadingToast);
 					toast("An error occured.", {
 						theme: 'dark',
@@ -274,10 +277,10 @@ export default {
 		joinDateHover() {
 			this.joinDate = !this.joinDate;
 		},
-    reset() {
-      this.$router.push('/');
-      this.playerSearched = false;
-    },
+		reset() {
+			this.$router.push('/');
+			this.playerSearched = false;
+		},
 		isError(error: string) {
 			this.error = error;
 			setTimeout(() => {
