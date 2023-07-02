@@ -233,3 +233,9 @@ p {
   font-weight: 700;
   font-family: inherit;
 }
+
+.button-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

@@ -8,7 +8,10 @@
     <div v-if="isLoading">Loading...</div>
     <div v-else-if="error">{{ error }}</div>
     <div v-if="playerSearched" class="container">
-      <button class="back-home-btn" @click="reset">Back Home</button>
+      <div class="button-row">
+        <button class="btn" @click="reset">Back Home</button>
+        <button class="btn" @click="getPlayer">Refresh</button>
+      </div>
       <div class="name-card">
         <div class="name-card-top">
           <p style="top: 0px; left: 0px">{{ data.meta.tag.value }}</p>
