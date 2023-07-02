@@ -54,6 +54,9 @@
           <p>{{ (charactersType as any)[character.type] }}</p>
           <p>Combat: {{ character.professions.combat.level }}</p>
           <p>Total: {{ character.level }}</p>
+          <div class="xp-bar">
+            <div class="xp-bar-fill" :style="{ width: `${(character.professions.combat.xp) }%` }"></div>
+          </div>
         </div>
       </div>
     </div>
